@@ -1,0 +1,6 @@
+namespace battle;
+
+class Character
+{
+    
+}

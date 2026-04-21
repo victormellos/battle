@@ -1,4 +1,4 @@
-namespace Battle
+namespace battle
 {
     public class Entity
     {
@@ -21,8 +21,8 @@ namespace Battle
         {
             int finalDamage = damage - Defense;
 
-            if (finalDamage < 1)
-                finalDamage = 1;
+            if (finalDamage < 0)
+                finalDamage = 0;
 
             Health -= finalDamage;
 
