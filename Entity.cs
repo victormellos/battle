@@ -1,42 +1,46 @@
+using System;
+
 namespace battle
 {
     public class Entity
     {
-        public int MaxHealth { get; private set; }
+        public int MaxHealth { get; }
         public int Health { get; private set; }
-        public int Attack { get; set; }
-        public int Defense { get; set; }
 
         public bool IsAlive => Health > 0;
 
-        public Entity(int maxHealth, int attack, int defense)
+        public event Action<int> OnDamaged;
+        public event Action OnDeath;
+
+        public Entity(int maxHealth)
         {
             MaxHealth = maxHealth;
             Health = maxHealth;
-            Attack = attack;
-            Defense = defense;
         }
 
-        public void TakeDamage(int damage)
+        public void ApplyDamage(int amount)
         {
-            int finalDamage = damage - Defense;
+            if (!IsAlive) return;
 
-            if (finalDamage < 0)
-                finalDamage = 0;
-
-            Health -= finalDamage;
+            Health -= amount;
 
             if (Health < 0)
                 Health = 0;
+
+            OnDamaged?.Invoke(amount);
+
+            if (Health == 0)
+                OnDeath?.Invoke();
         }
 
         public void Heal(int amount)
         {
+            if (!IsAlive) return;
+
             Health += amount;
 
             if (Health > MaxHealth)
                 Health = MaxHealth;
         }
-
     }
 }
