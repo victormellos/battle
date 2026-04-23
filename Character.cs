@@ -9,4 +9,11 @@ public class Character : Entity
         Name = name;
     
     }
+
+    static void Attack(Character target, int damage)
+    {
+
+        target.takeDamage(damage);
+    }
+
 }

@@ -18,7 +18,7 @@ namespace battle
             Health = maxHealth;
         }
 
-        public void ApplyDamage(int amount)
+        public void takeDamage(int amount)
         {
             if (!IsAlive) return;
 
